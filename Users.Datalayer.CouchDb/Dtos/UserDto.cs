@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Cmas.DataLayers.CouchDb.Users.Dtos
 {
@@ -15,6 +16,17 @@ namespace Cmas.DataLayers.CouchDb.Users.Dtos
         public string _rev;
 
         /// <summary>
+        /// Дата и время создания
+        /// </summary>
+        public DateTime CreatedAt;
+
+        /// <summary>
+        /// Дата и время обновления
+        /// </summary>
+        public DateTime UpdatedAt;
+
+
+        /// <summary>
         /// Логин пользователя
         /// </summary>
         public string Login;
@@ -28,6 +40,11 @@ namespace Cmas.DataLayers.CouchDb.Users.Dtos
         /// Хэш пароля
         /// </summary>
         public string PasswordHash;
+
+        /// <summary>
+        /// Хэш активации
+        /// </summary>
+        public string actHash;
 
         /// <summary>
         /// Роли
