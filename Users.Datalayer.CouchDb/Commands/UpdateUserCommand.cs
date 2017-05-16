@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using Cmas.Infrastructure.Domain.Commands;
-using Cmas.DataLayers.Infrastructure;
-using Microsoft.Extensions.Logging;
+using Cmas.DataLayers.Infrastructure; 
 using Cmas.DataLayers.CouchDb.Users;
 using Cmas.DataLayers.CouchDb.Users.Dtos;
 using Cmas.BusinessLayers.Users.CommandsContexts;
@@ -11,15 +11,14 @@ namespace Cmas.DataLayers.CouchDb.Requests.Commands
 {
     public class UpdateUserCommand : ICommand<UpdateUserCommandContext>
     {
-        private IMapper _autoMapper;
-        private readonly ILogger _logger;
+        private readonly IMapper _autoMapper;
         private readonly CouchWrapper _couchWrapper;
 
-        public UpdateUserCommand(IMapper autoMapper, ILoggerFactory loggerFactory)
+        public UpdateUserCommand(IServiceProvider serviceProvider)
         {
-            _autoMapper = autoMapper;
-            _logger = loggerFactory.CreateLogger<UpdateUserCommand>();
-            _couchWrapper = new CouchWrapper(DbConsts.DbConnectionString, DbConsts.DbName, _logger);
+            _autoMapper = (IMapper)serviceProvider.GetService(typeof(IMapper));
+
+            _couchWrapper = new CouchWrapper(serviceProvider, DbConsts.ServiceName);
         }
 
         public async Task<UpdateUserCommandContext> Execute(UpdateUserCommandContext commandContext)

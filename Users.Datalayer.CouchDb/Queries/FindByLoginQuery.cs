@@ -19,11 +19,11 @@ namespace Cmas.DataLayers.CouchDb.Users.Queries
         private readonly ILogger _logger;
         private readonly CouchWrapper _couchWrapper;
 
-        public FindByLoginQuery(IMapper autoMapper, ILoggerFactory loggerFactory)
+        public FindByLoginQuery(IServiceProvider serviceProvider)
         {
-            _autoMapper = autoMapper;
-            _logger = loggerFactory.CreateLogger<FindByLoginQuery>();
-            _couchWrapper = new CouchWrapper(DbConsts.DbConnectionString, DbConsts.DbName, _logger);
+            _autoMapper = (IMapper)serviceProvider.GetService(typeof(IMapper));
+
+            _couchWrapper = new CouchWrapper(serviceProvider, DbConsts.ServiceName);
         }
 
         public async Task<User> Ask(FindByLogin criterion)

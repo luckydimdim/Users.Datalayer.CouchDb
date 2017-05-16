@@ -9,6 +9,7 @@ using Cmas.Infrastructure.Domain.Criteria;
 using Cmas.Infrastructure.Domain.Queries;
 using Microsoft.Extensions.Logging;
 using MyCouch.Requests;
+using System;
 
 namespace Cmas.DataLayers.CouchDb.Users.Queries
 {
@@ -18,11 +19,11 @@ namespace Cmas.DataLayers.CouchDb.Users.Queries
         private readonly ILogger _logger;
         private readonly CouchWrapper _couchWrapper;
 
-        public AllEntitiesQuery(IMapper autoMapper, ILoggerFactory loggerFactory)
+        public AllEntitiesQuery(IServiceProvider serviceProvider)
         {
-            _autoMapper = autoMapper;
-            _logger = loggerFactory.CreateLogger<AllEntitiesQuery>();
-            _couchWrapper = new CouchWrapper(DbConsts.DbConnectionString, DbConsts.DbName, _logger);
+            _autoMapper = (IMapper)serviceProvider.GetService(typeof(IMapper));
+
+            _couchWrapper = new CouchWrapper(serviceProvider, DbConsts.ServiceName);
         }
 
         public async Task<IEnumerable<User>> Ask(AllEntities criterion)
