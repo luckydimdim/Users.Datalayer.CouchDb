@@ -30,6 +30,9 @@ namespace Cmas.DataLayers.CouchDb.Users.Queries
                 return await client.Entities.GetAsync<UserDto>(criterion.Id);
             });
 
+            if (result == null)
+                return null;
+
             return _autoMapper.Map<User>(result.Content);
         }
     }

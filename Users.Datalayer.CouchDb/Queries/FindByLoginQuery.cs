@@ -7,7 +7,6 @@ using Cmas.BusinessLayers.Users.Entities;
 using Cmas.DataLayers.CouchDb.Users.Dtos;
 using Cmas.DataLayers.Infrastructure;
 using Cmas.Infrastructure.Domain.Queries;
-using Cmas.Infrastructure.ErrorHandler;
 using Microsoft.Extensions.Logging;
 using CouchRequest = MyCouch.Requests;
 
