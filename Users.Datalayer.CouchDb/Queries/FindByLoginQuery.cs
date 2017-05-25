@@ -7,7 +7,6 @@ using Cmas.BusinessLayers.Users.Entities;
 using Cmas.DataLayers.CouchDb.Users.Dtos;
 using Cmas.DataLayers.Infrastructure;
 using Cmas.Infrastructure.Domain.Queries;
-using Microsoft.Extensions.Logging;
 using CouchRequest = MyCouch.Requests;
 
 namespace Cmas.DataLayers.CouchDb.Users.Queries
@@ -15,7 +14,6 @@ namespace Cmas.DataLayers.CouchDb.Users.Queries
     public class FindByLoginQuery : IQuery<FindByLogin, Task<User>>
     {
         private IMapper _autoMapper;
-        private readonly ILogger _logger;
         private readonly CouchWrapper _couchWrapper;
 
         public FindByLoginQuery(IServiceProvider serviceProvider)
